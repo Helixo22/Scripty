@@ -18,6 +18,10 @@
    python nome_file.py
 5.(ricorda di installare tkinter)
 
+## Attenzioen ##
+Questa è una beta!
+
+
 
 # WebSite:
 https://scripty-83adc.web.app/
