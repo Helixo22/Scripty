@@ -19,5 +19,5 @@
 5.(ricorda di installare tkinter)
 
 
-WebSIte:
+# WebSite:
 https://scripty-83adc.web.app/
