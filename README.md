@@ -18,7 +18,7 @@
    python nome_file.py
 5.(ricorda di installare tkinter)
 
-## Attenzioen ##
+## Attenzione ##
 Questa è una beta!
 
 
