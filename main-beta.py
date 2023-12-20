@@ -1,11 +1,30 @@
 import tkinter as tk
-from tkinter import scrolledtext
-from tkinter import filedialog
+from tkinter import *
+from tkinter import scrolledtext, font, filedialog
+import tkinter as tk
+from tkinter import ttk
+
+class LandingPage:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Scripty-home")
+        self.root.geometry("400x300")
+
+        self.label = ttk.Label(self.root, text="Welcome to Scripty", font=("Helvetica", 16))
+        self.label.pack(pady=20)
+
+        self.button = ttk.Button(self.root, text="Open Notepad", command=self.open_notepad)
+        self.button.pack(pady=10)
+    def open_notepad(self):
+        self.root.destroy()  # Close the landing page
+        notepad_root = tk.Tk()
+        notepad = Notepad(notepad_root)
+        notepad_root.mainloop()
 
 class Notepad:
     def __init__(self, root):
         self.root = root
-        self.root.title("Scripty")
+        self.root.title("Notepad")
         self.root.geometry("800x600")
 
         self.text_widget = scrolledtext.ScrolledText(self.root, wrap="word", undo=True)
@@ -33,10 +52,6 @@ class Notepad:
         self.edit_menu.add_separator()
         self.edit_menu.add_checkbutton(label="Bold", command=self.toggle_bold)
         self.edit_menu.add_checkbutton(label="Italic", command=self.toggle_italic)
-        self.edit_menu.add_separator()
-        self.edit_menu.add_command(label="Heading 1", command=lambda: self.apply_heading(1))
-        self.edit_menu.add_command(label="Heading 2", command=lambda: self.apply_heading(2))
-        self.edit_menu.add_command(label="Heading 3", command=lambda: self.apply_heading(3))
 
         self.theme_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label="Themes", menu=self.theme_menu)
@@ -44,10 +59,6 @@ class Notepad:
         self.theme_menu.add_command(label="Forest", command=lambda: self.change_theme("forest"))
         self.theme_menu.add_command(label="Dracula", command=lambda: self.change_theme("dracula"))
         self.theme_menu.add_command(label="Dark", command=lambda: self.change_theme("dark"))
-
-        self.editor_mode = tk.BooleanVar()
-        self.editor_mode.set(False)
-        self.menu_bar.add_checkbutton(label="Editor Mode", variable=self.editor_mode, command=self.toggle_editor_mode)
 
         # Default theme
         self.theme = {
@@ -60,11 +71,8 @@ class Notepad:
         self.current_theme = "default"
         self.apply_theme()
 
-        self.line_count_label = tk.Label(self.root, text="Lines: 0")
-        self.line_count_label.pack(side="bottom", anchor="e")
-
-        
-        self.text_widget.bind("<Motion>", self.update_line_count)
+        self.bold_tags = {"bold": font.Font(weight=font.BOLD)}
+        self.italic_tags = {"italic": font.Font(slant=font.ITALIC)}
 
     def new_file(self):
         self.text_widget.delete("1.0", tk.END)
@@ -103,15 +111,30 @@ class Notepad:
 
     def toggle_bold(self):
         self.toggle_format("bold")
+        self.apply_tags()
 
     def toggle_italic(self):
         self.toggle_format("italic")
+        self.apply_tags()
 
-    def apply_heading(self, heading_level):
-        if self.text_widget.tag_ranges(tk.SEL):
-            self.text_widget.tag_add(f"heading{heading_level}", tk.SEL_FIRST, tk.SEL_LAST)
+    def apply_tags(self):
+        for tag, font_style in self.bold_tags.items():
+            self.text_widget.tag_configure(tag, font=font_style)
+
+        for tag, font_style in self.italic_tags.items():
+            self.text_widget.tag_configure(tag, font=font_style)
+
+        # Applica i tag al testo selezionato
+        selected_text = self.text_widget.tag_names(tk.SEL_FIRST)
+        if "bold" in selected_text:
+            self.text_widget.tag_add("bold", tk.SEL_FIRST, tk.SEL_LAST)
         else:
-            self.text_widget.tag_add(f"heading{heading_level}", "1.0", tk.END)
+            self.text_widget.tag_remove("bold", tk.SEL_FIRST, tk.SEL_LAST)
+
+        if "italic" in selected_text:
+            self.text_widget.tag_add("italic", tk.SEL_FIRST, tk.SEL_LAST)
+        else:
+            self.text_widget.tag_remove("italic", tk.SEL_FIRST, tk.SEL_LAST)
 
     def change_theme(self, theme_name):
         self.current_theme = theme_name
@@ -121,25 +144,7 @@ class Notepad:
         theme = self.theme.get(self.current_theme, self.theme["default"])
         self.text_widget.config(bg=theme["bg"], fg=theme["fg"])
 
-    def toggle_editor_mode(self):
-        if self.editor_mode.get():
-          
-            self.text_widget.bind("<Key>", self.update_line_count_on_keypress)
-        else:
-            
-            self.text_widget.unbind("<Key>")
-            self.update_line_count()
-
-    def update_line_count(self, event=None):
-        
-        line_count = self.text_widget.get("1.0", tk.END).count('\n')
-        self.line_count_label.config(text=f"Lines: {line_count}")
-
-    def update_line_count_on_keypress(self, event):
-       
-        self.update_line_count()
-
 if __name__ == "__main__":
     root = tk.Tk()
-    notepad = Notepad(root)
+    landing_page = LandingPage(root)
     root.mainloop()
