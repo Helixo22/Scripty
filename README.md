@@ -16,7 +16,7 @@
 4. Esegui il programma con il comando:
    ```bash
    python nome_file.py
-5.(ricorda di installare tkinter)
+5.(ricorda di installare tkinter:pip install tkinter)
 
 ## Attenzione ##
 Questa è una beta!
