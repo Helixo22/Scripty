@@ -1,4 +1,4 @@
-# Notepad App with Modern Design
+# Scripty
 
 ## Overview
 This is a simple notepad application created using Python and PyQt. The app provides basic text editing functionalities with a modern and customizable design.
