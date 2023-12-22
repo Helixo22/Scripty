@@ -1,26 +1,56 @@
-# Scripty
+# Notepad App with Modern Design
 
+## Overview
+This is a simple notepad application created using Python and PyQt. The app provides basic text editing functionalities with a modern and customizable design.
 
-## Requisiti
+## Features
+- **Text Editing:** Create, edit, and save text files with ease.
+- **Styling Options:** Apply bold and italic formatting to the text.
+- **Themes:** Choose from different themes to customize the look of the notepad.
+- **Modern Design:** Enjoy a clean and modern user interface.
 
-- Python 3.x (consigliato)
+## Getting Started
+1. **Prerequisites:**
+    - Python 3.x
+    - PyQt5 library
 
-## Come iniziare
+2. **Installation:**
+    ```bash
+    pip install PyQt5
+    ```
 
-1. Assicurati di avere Python installato sul tuo sistema.
+3. **Run the App:**
+    ```bash
+    python main.py
+    ```
 
-2. Scarica il repository o copia il codice sorgente in un file con estensione `.py`.
+## Usage
+- **File Menu:**
+  - New: Create a new text document.
+  - Open: Open an existing text file.
+  - Save: Save the current document.
+  - Exit: Close the application.
 
-3. Apri il terminale o prompt dei comandi e naviga nella directory contenente il file `.py`.
+- **Edit Menu:**
+  - Undo: Undo the last action.
+  - Redo: Redo the previously undone action.
+  - Cut: Cut the selected text.
+  - Copy: Copy the selected text.
+  - Paste: Paste the copied/cut text.
+  - Bold: Toggle bold formatting.
+  - Italic: Toggle italic formatting.
 
-4. Esegui il programma con il comando:
-   ```bash
-   python nome_file.py
-5.(ricorda di installare tkinter:pip install tkinter)
+- **Themes Menu:**
+  - Default: Set the default theme.
+  - Forest: Apply a forest-themed background.
+  - Dracula: Apply a dark and stylish theme.
+  - Dark: Set a dark theme.
 
-## Attenzione ##
-Questa è una beta!
-
+## Customization
+Feel free to customize the application further:
+- Modify the themes in the `theme` dictionary in the code.
+- Experiment with different font styles and sizes.
+- Explore additional styling options provided by PyQt.
 
 
 # WebSite:
